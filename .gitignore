@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+build/
+dist/
+
+# Local lakehouse data & warehouse
+lake/
+warehouse/
+*.duckdb
+*.duckdb.wal
+
+# Environment & editors
+.env
+.idea/
+.vscode/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db

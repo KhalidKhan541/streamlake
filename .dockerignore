@@ -1,0 +1,14 @@
+.git
+.github
+.venv
+venv
+lake
+warehouse
+tests
+notebooks
+docs
+.env
+**/__pycache__
+**/.pytest_cache
+**/.ruff_cache
+README.md

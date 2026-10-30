@@ -1,0 +1,10 @@
+# Normalize all text files to LF so shell scripts work inside Linux containers,
+# even when the repo is checked out on Windows.
+* text=auto eol=lf
+
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.ico binary
+*.parquet binary
+*.duckdb binary
