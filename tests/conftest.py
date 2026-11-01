@@ -16,6 +16,6 @@ def settings(tmp_path: Path) -> Settings:
     """Isolated lake + warehouse for every test, using the real SQL models."""
     return Settings(
         lake_dir=tmp_path / "lake",
-        warehouse_path=tmp_path / "warehouse" / "analytics.duckdb",
+        warehouse_path=tmp_path / "warehouse" / "streamlake.duckdb",
         sql_dir=PROJECT_ROOT / "sql",
     )

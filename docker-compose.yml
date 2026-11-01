@@ -51,7 +51,7 @@ services:
     environment:
       STREAMLAKE_KAFKA_BOOTSTRAP: kafka:9092
       STREAMLAKE_LAKE_DIR: /app/lake
-      STREAMLAKE_WAREHOUSE: /app/warehouse/analytics.duckdb
+      STREAMLAKE_WAREHOUSE: /app/warehouse/streamlake.duckdb
       STREAMLAKE_BATCH_SIZE: ${STREAMLAKE_BATCH_SIZE:-500}
       STREAMLAKE_FLUSH_SECONDS: ${STREAMLAKE_FLUSH_SECONDS:-5}
     volumes:

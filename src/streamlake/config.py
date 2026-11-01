@@ -30,7 +30,7 @@ class Settings:
             warehouse_path=Path(
                 os.getenv(
                     "STREAMLAKE_WAREHOUSE",
-                    str(PROJECT_ROOT / "warehouse" / "analytics.duckdb"),
+                    str(PROJECT_ROOT / "warehouse" / "streamlake.duckdb"),
                 )
             ),
             sql_dir=Path(os.getenv("STREAMLAKE_SQL_DIR", str(PROJECT_ROOT / "sql"))),

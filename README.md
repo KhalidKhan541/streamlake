@@ -52,7 +52,7 @@ flowchart LR
         S --> G[(Gold<br/>revenue · funnel · products)]
     end
 
-    T -.writes.-> W[(analytics.duckdb)]
+    T -.writes.-> W[(streamlake.duckdb)]
     S -.in.-> W
     G -.in.-> W
 ```
@@ -181,7 +181,7 @@ idempotent processing — effectively-once data in the warehouse.
 | `STREAMLAKE_TOPIC` | `events` | input topic |
 | `STREAMLAKE_GROUP_ID` | `streamlake-ingest` | consumer group |
 | `STREAMLAKE_LAKE_DIR` | `<repo>/lake` | bronze + DLQ root |
-| `STREAMLAKE_WAREHOUSE` | `<repo>/warehouse/analytics.duckdb` | DuckDB database |
+| `STREAMLAKE_WAREHOUSE` | `<repo>/warehouse/streamlake.duckdb` | DuckDB database |
 | `STREAMLAKE_SQL_DIR` | `<repo>/sql` | SQL model directory |
 | `STREAMLAKE_BATCH_SIZE` | `500` | max messages per flush |
 | `STREAMLAKE_FLUSH_SECONDS` | `5` | max seconds between flushes |

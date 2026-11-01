@@ -84,7 +84,7 @@ lake/
     └── received_date=2026-10-30/
         └── batch-20261030T112405-4f2a91c3.parquet
 warehouse/
-└── analytics.duckdb
+└── streamlake.duckdb
 ```
 
 Bronze columns:
