@@ -1,5 +1,6 @@
 -- Silver: explode order_placed.items into one row per order line.
--- from_json() turns the JSON array into a typed LIST of STRUCTs to unnest.
+-- Index the JSON array with range() so the model works on every DuckDB 1.x
+-- release without relying on nested-type casts.
 CREATE OR REPLACE TABLE analytics.silver_order_items AS
 WITH placed AS (
     SELECT
@@ -8,10 +9,7 @@ WITH placed AS (
         session_id,
         event_ts,
         event_date,
-        from_json(
-            json_extract(payload, '$.items'),
-            '[{"product_id": "VARCHAR", "quantity": "INTEGER", "unit_price": "DOUBLE"}]'
-        ) AS items
+        json_extract(payload, '$.items') AS items
     FROM analytics.silver_events
     WHERE event_type = 'order_placed'
 ),
@@ -22,8 +20,12 @@ exploded AS (
         session_id,
         event_ts,
         event_date,
-        UNNEST(items) AS item
+        json_extract(
+            items,
+            '$[' || CAST(item_index.i AS VARCHAR) || ']'
+        ) AS item
     FROM placed
+    CROSS JOIN range(json_array_length(items)) AS item_index(i)
 )
 SELECT
     order_id,
@@ -31,8 +33,12 @@ SELECT
     session_id,
     event_ts AS ordered_at,
     event_date AS order_date,
-    item.product_id AS product_id,
-    item.quantity AS quantity,
-    item.unit_price AS unit_price,
-    ROUND(item.quantity * item.unit_price, 2) AS line_total
+    json_extract_string(item, '$.product_id') AS product_id,
+    TRY_CAST(json_extract(item, '$.quantity') AS INTEGER) AS quantity,
+    TRY_CAST(json_extract(item, '$.unit_price') AS DOUBLE) AS unit_price,
+    ROUND(
+        TRY_CAST(json_extract(item, '$.quantity') AS INTEGER)
+        * TRY_CAST(json_extract(item, '$.unit_price') AS DOUBLE),
+        2
+    ) AS line_total
 FROM exploded;

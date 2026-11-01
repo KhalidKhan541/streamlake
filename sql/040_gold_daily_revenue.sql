@@ -18,5 +18,4 @@ SELECT
         2
     ) AS payment_rate_pct
 FROM analytics.silver_orders
-GROUP BY order_date
-ORDER BY order_date;
+GROUP BY order_date;

@@ -56,6 +56,6 @@ SELECT
         ELSE 'pending'
     END AS status
 FROM placed
-LEFT JOIN items USING (order_id)
-LEFT JOIN payments USING (order_id)
-LEFT JOIN cancellations USING (order_id);
+LEFT JOIN items ON items.order_id = placed.order_id
+LEFT JOIN payments ON payments.order_id = placed.order_id
+LEFT JOIN cancellations ON cancellations.order_id = placed.order_id;

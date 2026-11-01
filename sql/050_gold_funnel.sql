@@ -42,5 +42,4 @@ SELECT
     steps.sessions,
     ROUND(steps.sessions * 100.0 / NULLIF(daily.sessions, 0), 2) AS conversion_pct
 FROM steps
-INNER JOIN daily USING (session_date)
-ORDER BY steps.session_date, steps.step_order;
+INNER JOIN daily ON daily.session_date = steps.session_date;
