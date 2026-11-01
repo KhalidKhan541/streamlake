@@ -25,7 +25,7 @@ exploded AS (
             '$[' || CAST(item_index.i AS VARCHAR) || ']'
         ) AS item
     FROM placed
-    CROSS JOIN range(json_array_length(items)) AS item_index(i)
+    CROSS JOIN range(CAST(json_array_length(items) AS BIGINT)) AS item_index(i)
 )
 SELECT
     order_id,
